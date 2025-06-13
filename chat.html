@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>URL-WEB ANALYZER</title>
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      --chat-bg: rgba(255, 255, 255, 0.1);
+      --chat-bubble: white;
+      --chat-text: black;
+      --chat-user-bubble: #64b5f6;
+      --chat-user-text: white;
+      --input-bg: rgba(255, 255, 255, 0.1);
+      --text-color: white;
+      --box-bg: rgba(255, 255, 255, 0.05);
+    }
+
+    html[data-theme="light"] {
+      --bg-gradient: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+      --chat-bg: rgba(0, 0, 0, 0.05);
+      --chat-bubble: #ffffff;
+      --chat-text: #000000;
+      --chat-user-bubble: #1976d2;
+      --chat-user-text: #ffffff;
+      --input-bg: rgba(0, 0, 0, 0.05);
+      --text-color: #000000;
+      --box-bg: rgba(0, 0, 0, 0.03);
+    }
+
+    body {
+      margin: 0;
+      display: flex;
+      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-color);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .left {
+      width: 70%;
+      height: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .left iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .right {
+      width: 30%;
+      background: var(--chat-bg);
+      backdrop-filter: blur(12px);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      box-shadow: -5px 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .new-chat {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      cursor: pointer;
+      font-size: 18px;
+      background: transparent;
+      border: none;
+      color: var(--text-color);
+    }
+
+    .new-chat a {
+      text-decoration: none;
+      background-color: #64b5f6;
+      padding: 8px 14px;
+      border-radius: 6px;
+      color: white;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .new-chat a:hover {
+      background-color: #42a5f5;
+    }
+
+    .chat-box {
+      flex: 1;
+      overflow-y: auto;
+      margin-top: 60px;
+      margin-bottom: 15px;
+      padding: 10px;
+      background: var(--box-bg);
+      border-radius: 10px;
+    }
+
+    .message {
+      display: flex;
+      align-items: flex-start;
+      margin: 15px 0;
+    }
+
+    .avatar {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      color: white;
+      background-color: #42a5f5;
+      margin: 0 10px;
+      min-width: 80px;
+      max-width: 100px;
+      text-align: center;
+    }
+
+    .user .avatar {
+      background-color: #2196f3;
+    }
+
+    .bot .avatar {
+      background-color: #42a5f5;
+    }
+
+    .bubble {
+      padding: 12px 16px;
+      background: var(--chat-bubble);
+      color: var(--chat-text);
+      border-radius: 12px;
+      max-width: 75%;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .user {
+      flex-direction: row-reverse;
+    }
+
+    .user .bubble {
+      background: var(--chat-user-bubble);
+      color: var(--chat-user-text);
+    }
+
+    .input-area {
+      display: flex;
+      gap: 10px;
+    }
+
+    .input-area input {
+      flex: 1;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+      background: var(--input-bg);
+      color: var(--text-color);
+    }
+
+    .input-area input:disabled {
+      background: rgba(255, 255, 255, 0.05);
+      cursor: not-allowed;
+    }
+
+    .input-area button {
+      padding: 10px 16px;
+      background-color: #64b5f6;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .input-area button:hover {
+      background-color: #42a5f5;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      .left, .right {
+        width: 100%;
+        height: 50%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="left">
+    <iframe src="{{ url }}"></iframe>
+  </div>
+  <div class="right">
+    <div class="new-chat">
+      <a href="/new-chat">New Chat</a>
+    </div>
+    <button class="theme-toggle" id="themeToggle">🌙</button>
+    <div class="chat-box" id="chatBox"></div>
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Type a message..." />
+      <button onclick="sendMessage()" id="sendBtn">Send</button>
+    </div>
+  </div>
+
+  <script>
+    let userMessageCount = 0;
+    const MAX_MESSAGES = 5;
+
+    async function sendMessage() {
+      const input = document.getElementById('userInput');
+      const sendBtn = document.getElementById('sendBtn');
+      const message = input.value.trim();
+
+      if (!message) return;
+
+      if (message.startsWith("http://") || message.startsWith("https://")) {
+        alert("⚠️ URLs are not allowed in chat.");
+        return;
+      }
+
+      if (userMessageCount >= MAX_MESSAGES) {
+        alert("⚠️ You can send only 5 messages per session.");
+        input.disabled = true;
+        sendBtn.disabled = true;
+        return;
+      }
+
+      appendMessage("You", message, "user");
+      input.value = "";
+      userMessageCount++;
+
+      const res = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message }),
+      });
+
+      const data = await res.json();
+      typeWriterEffect("Chat-Ai", data.reply, "bot");
+    }
+
+    function appendMessage(sender, text, cls) {
+      const chatBox = document.getElementById("chatBox");
+      const msg = document.createElement("div");
+      msg.className = `message ${cls}`;
+      msg.innerHTML = `
+        <div class="avatar">${sender}</div>
+        <div class="bubble">${text}</div>
+      `;
+      chatBox.appendChild(msg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function typeWriterEffect(sender, text, cls) {
+      const chatBox = document.getElementById("chatBox");
+      const msg = document.createElement("div");
+      msg.className = `message ${cls}`;
+
+      const avatar = document.createElement("div");
+      avatar.className = "avatar";
+      avatar.textContent = sender;
+
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+
+      msg.appendChild(avatar);
+      msg.appendChild(bubble);
+      chatBox.appendChild(msg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          bubble.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, 20);
+        }
+      }
+      type();
+    }
+
+    // THEME TOGGLE SCRIPT
+    const html = document.documentElement;
+    const themeToggleBtn = document.getElementById('themeToggle');
+
+    function setTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      themeToggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+    });
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
+  </script>
+</body>
+</html>

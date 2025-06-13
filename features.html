@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <title>Features - Chat AI Web Analyzer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" /> 
+  <style>
+    :root {
+      --gray-600: #6b7280;
+      --black: #000000;
+      --white: #ffffff;
+      --input-border: #d1d5db;
+      --input-bg: #f9fafb;
+      --btn-bg: #000000;
+      --btn-color: #ffffff;
+      --btn-hover-bg: #111111;
+      --box-bg: rgba(255, 255, 255, 0.1);
+      --box-text: #e5e7eb;
+      --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    }
+
+    html[data-theme='light'] {
+      --gray-600: #4b5563;
+      --black: #ffffff;
+      --white: #000000;
+      --input-border: #ccc;
+      --input-bg: #ffffff;
+      --btn-bg: #222222;
+      --btn-color: #ffffff;
+      --btn-hover-bg: #444444;
+      --box-bg: #ffffff;
+      --box-text: #111827;
+      --bg-gradient: linear-gradient(135deg, #f0f0f0, #fafafa);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      animation: fadeIn 1s ease;
+      transition: background 0.5s ease, color 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--white);
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.75rem;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--black);
+    }
+
+    #theme-toggle {
+      font-size: 1.3rem;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      color: var(--white);
+    }
+
+    main {
+      width: 100%;
+      max-width: 1200px;
+      padding: 3rem 2rem 5rem;
+      text-align: center;
+    }
+
+    .features-hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .features-hero p {
+      font-size: 1.125rem;
+      color: var(--gray-600);
+      margin-bottom: 3rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .feature-card {
+      background: var(--box-bg);
+      padding: 2.5rem;
+      border-radius: 1rem;
+      transition: transform 0.3s, background 0.3s;
+      color: var(--box-text);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .feature-card h3 {
+      color: var(--box-text);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .feature-card p {
+      color: var(--box-text);
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .features-hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .feature-card {
+        padding: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="logo">🚀 CHAT AI</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/features">Features</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/documentation">Documentation</a>
+
+        <a href="/contact">Contact</a>
+        
+        <button id="theme-toggle">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="features-hero">
+      <h1>🚀 Powerful Features</h1>
+      <p>Discover everything Chat AI Web Analyzer can do for you</p>
+    </section>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">🌐</span>
+        <h3>URL-Based Webpage Analysis</h3>
+        <p>Enter any valid URL and instantly render the website for live inspection.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🧠</span>
+        <h3>AI-Powered Chat Assistant</h3>
+        <p>Ask questions related to the webpage content with intelligent AI support using Gemini integration.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🔍</span>
+        <h3>Deep Content Analysis</h3>
+        <p>Automatically summarizes, extracts insights, and interprets webpage structure and text using NLP.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">⚡</span>
+        <h3>Real-Time Performance Metrics</h3>
+        <p>Evaluates webpage speed, Core Web Vitals, and loading efficiency in real-time.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">📊</span>
+        <h3>SEO & Accessibility Audit</h3>
+        <p>Checks metadata, headers, alt tags, and accessibility guidelines to suggest SEO improvements.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🔒</span>
+        <h3>Secure & Private</h3>
+        <p>No third-party exposure — the HTML source and analysis are stored privately on the backend.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🔗</span>
+        <h3>API Integration Support</h3>  
+        <p>Easily extend functionality with RESTful APIs for external platforms and custom dashboards.</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+
+    function setTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+    });
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
+  </script>
+</body>
+</html>

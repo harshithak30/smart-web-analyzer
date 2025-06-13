@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pricing - Chat AI Web Analyzer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" /> 
+  <style>
+    :root {
+      --gray-600: #6b7280;
+      --black: #000000;
+      --white: #ffffff;
+      --input-border: #d1d5db;
+      --input-bg: #f9fafb;
+      --btn-bg: #000000;
+      --btn-color: #ffffff;
+      --btn-hover-bg: #111111;
+      --box-bg: rgba(255, 255, 255, 0.1);
+      --box-text: #e5e7eb;
+      --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      --success-color: #10b981;
+      --error-color: #ef4444;
+    }
+
+    html[data-theme='light'] {
+      --gray-600: #4b5563;
+      --black: #ffffff;
+      --white: #000000;
+      --input-border: #ccc;
+      --input-bg: #ffffff;
+      --btn-bg: #222222;
+      --btn-color: #ffffff;
+      --btn-hover-bg: #444444;
+      --box-bg: #ffffff;
+      --box-text: #111827;
+      --bg-gradient: linear-gradient(135deg, #f0f0f0, #fafafa);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      animation: fadeIn 1s ease;
+      transition: background 0.5s ease, color 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--white);
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.75rem;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--black);
+    }
+
+    #theme-toggle {
+      font-size: 1.3rem;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      color: var(--white);
+    }
+
+    main {
+      width: 100%;
+      max-width: 1200px;
+      padding: 3rem 2rem 5rem;
+      text-align: center;
+    }
+
+    .pricing-hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .pricing-hero p {
+      font-size: 1.125rem;
+      color: var(--gray-600);
+      margin-bottom: 3rem;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .pricing-card {
+      background: var(--box-bg);
+      padding: 2.5rem;
+      border-radius: 1rem;
+      transition: transform 0.3s, background 0.3s;
+      color: var(--box-text);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      border: 2px solid transparent;
+      position: relative;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .pricing-card.featured {
+      border-color: #3b82f6;
+      transform: scale(1.05);
+    }
+
+    .pricing-card.featured::before {
+      content: "MOST POPULAR";
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #3b82f6;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .plan-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .plan-name {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--box-text);
+    }
+
+    .plan-price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--box-text);
+      margin-bottom: 0.5rem;
+    }
+
+    .plan-period {
+      color: var(--gray-600);
+      margin-bottom: 2rem;
+    }
+
+    .plan-description {
+      color: var(--box-text);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+
+    .plan-features li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--box-text);
+    }
+
+    .feature-included {
+      color: var(--success-color);
+    }
+
+    .feature-excluded {
+      color: var(--error-color);
+    }
+
+    @media (max-width: 768px) {
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .pricing-hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .pricing-card {
+        padding: 2rem;
+      }
+      
+      .pricing-card.featured {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="logo">🚀 CHAT AI</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/features">Features</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/documentation">Documentation</a>
+       <a href="/contact">Contact</a>
+        <button id="theme-toggle">☀️</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="pricing-hero">
+      <h1>💰 Pricing Plans</h1>
+      <p>Choose the perfect plan for your Chat AI Web Analyzer needs</p>
+    </section>
+
+    <div class="pricing-grid">
+      <!-- Free Plan -->
+      <div class="pricing-card">
+        <span class="plan-icon">🔹</span>
+        <h2 class="plan-name">Free Plan</h2>
+        <div class="plan-price">₹0</div>
+        <div class="plan-period">/month</div>
+        <p class="plan-description">Perfect for individuals or students exploring basic webpage analysis.</p>
+        <ul class="plan-features">
+          <li><span class="feature-included">✅</span> 3 URL analyses/day</li>
+          <li><span class="feature-included">✅</span> Basic AI chat support</li>
+          <li><span class="feature-included">✅</span> Light/Dark mode toggle</li>
+          <li><span class="feature-excluded">❌</span> No HTML download</li>
+          <li><span class="feature-excluded">❌</span> No saved history</li>
+        </ul>
+      </div>
+
+      <!-- Pro Plan -->
+      <div class="pricing-card featured">
+        <span class="plan-icon">🔸</span>
+        <h2 class="plan-name">Pro Plan</h2>
+        <div class="plan-price">₹199</div>
+        <div class="plan-period">/month</div>
+        <p class="plan-description">Best for developers and content creators who need detailed insights.</p>
+        <ul class="plan-features">
+          <li><span class="feature-included">✅</span> 50 URL analyses/month</li>
+          <li><span class="feature-included">✅</span> Advanced AI chat assistant</li>
+          <li><span class="feature-included">✅</span> SEO and performance audits</li>
+          <li><span class="feature-included">✅</span> Save and download HTML reports</li>
+          <li><span class="feature-included">✅</span> Priority support</li>
+        </ul>
+      </div>
+
+      <!-- Enterprise Plan -->
+      <div class="pricing-card">
+        <span class="plan-icon">🔶</span>
+        <h2 class="plan-name">Enterprise Plan</h2>
+        <div class="plan-price">₹799</div>
+        <div class="plan-period">/month</div>
+        <p class="plan-description">Ideal for businesses and professionals with high-volume needs.</p>
+        <ul class="plan-features">
+          <li><span class="feature-included">✅</span> Unlimited URL analyses</li>
+          <li><span class="feature-included">✅</span> Real-time competitive comparison</li>
+          <li><span class="feature-included">✅</span> Full API integration</li>
+          <li><span class="feature-included">✅</span> Enterprise-level support</li>
+          <li><span class="feature-included">✅</span> Monthly analytics report</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <!-- JavaScript Theme Toggle -->
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const htmlEl = document.documentElement;
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      htmlEl.setAttribute('data-theme', savedTheme);
+      themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+    } else {
+      themeToggle.textContent = htmlEl.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = htmlEl.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      htmlEl.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    });
+  </script>
+</body>
+</html>

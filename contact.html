@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact Us - Chat AI Web Analyzer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" /> 
+  <style>
+    :root {
+      --gray-600: #6b7280;
+      --black: #000000;
+      --white: #ffffff;
+      --input-border: #d1d5db;
+      --input-bg: #f9fafb;
+      --btn-bg: #000000;
+      --btn-color: #ffffff;
+      --btn-hover-bg: #111111;
+      --box-bg: rgba(255, 255, 255, 0.1);
+      --box-text: #e5e7eb;
+      --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    }
+
+    html[data-theme='light'] {
+      --gray-600: #4b5563;
+      --black: #ffffff;
+      --white: #000000;
+      --input-border: #ccc;
+      --input-bg: #ffffff;
+      --btn-bg: #222222;
+      --btn-color: #ffffff;
+      --btn-hover-bg: #444444;
+      --box-bg: #ffffff;
+      --box-text: #111827;
+      --bg-gradient: linear-gradient(135deg, #f0f0f0, #fafafa);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      animation: fadeIn 1s ease;
+      transition: background 0.5s ease, color 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--white);
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.75rem;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--black);
+    }
+
+    #theme-toggle {
+      font-size: 1.3rem;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      color: var(--white);
+    }
+
+    main {
+      width: 100%;
+      max-width: 1200px;
+      padding: 3rem 2rem 5rem;
+      text-align: center;
+    }
+
+    .contact-hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 2rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .contact-info {
+      background: var(--box-bg);
+      padding: 3rem;
+      border-radius: 1rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+
+    .contact-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .contact-icon {
+      font-size: 1.5rem;
+      min-width: 2rem;
+    }
+
+    .contact-details h3 {
+      color: var(--box-text);
+      margin: 0 0 0.5rem 0;
+      font-size: 1.25rem;
+    }
+
+    .contact-details p {
+      color: var(--box-text);
+      margin: 0.25rem 0;
+      line-height: 1.6;
+    }
+
+    .contact-details a {
+      color: #60a5fa;
+      text-decoration: none;
+    }
+
+    .contact-details a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .contact-info {
+        padding: 2rem;
+      }
+      
+      .contact-hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .contact-item {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="logo">🚀 CHAT AI</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/features">Features</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/documentation">Documentation</a>
+        <a href="/contact">Contact</a>
+        <button id="theme-toggle">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="contact-hero">
+      <h1>📞 Contact Us</h1>
+    </section>
+
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-icon">💼</div>
+        <div class="contact-details">
+          <h3>Company Name</h3>
+          <p>Chat AI Web Analyzer Pvt. Ltd.</p>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div class="contact-details">
+          <h3>Address</h3>
+          <p>4th Floor, TechHub Tower,<br>
+             Madhapur, Hyderabad, Telangana – 500081<br>
+             India</p>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">📧</div>
+        <div class="contact-details">
+          <h3>Email</h3>
+          <p><a href="mailto:support@chataiwebanalyzer.com">support@chataiwebanalyzer.com</a></p>
+          <p><a href="mailto:info@chataiwebanalyzer.com">info@chataiwebanalyzer.com</a></p>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div class="contact-details">
+          <h3>Phone</h3>
+          <p><a href="tel:+910123456789">+91 0123456789</a></p>
+          <p><a href="tel:+910011223344">+91 0011223344</a></p>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">🌐</div>
+        <div class="contact-details">
+          <h3>Website</h3>
+          <p><a href="http://www.chataiwebanalyzer.com" target="_blank">www.chataiwebanalyzer.com</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+
+    function setTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+    });
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
+  </script>
+</body>
+</html>

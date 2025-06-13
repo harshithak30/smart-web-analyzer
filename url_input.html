@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chat AI Web Analyzer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gray-600: #6b7280;
+      --black: #000000;
+      --white: #ffffff;
+      --input-border: #d1d5db;
+      --input-bg: #f9fafb;
+      --btn-bg: #000000;
+      --btn-color: #ffffff;
+      --btn-hover-bg: #111111;
+      --box-bg: rgba(255, 255, 255, 0.1);
+      --box-text: #e5e7eb;
+      --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    }
+
+    html[data-theme='light'] {
+      --gray-600: #4b5563;
+      --black: #ffffff;
+      --white: #000000;
+      --input-border: #ccc;
+      --input-bg: #ffffff;
+      --btn-bg: #222222;
+      --btn-color: #ffffff;
+      --btn-hover-bg: #444444;
+      --box-bg: #ffffff;
+      --box-text: #111827;
+      --bg-gradient: linear-gradient(135deg, #f0f0f0, #fafafa);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 1s ease;
+      transition: background 0.5s ease, color 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--white);
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.75rem;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--black);
+    }
+
+    #theme-toggle {
+      font-size: 1.3rem;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      color: var(--white);
+    }
+
+    main {
+      width: 100%;
+      max-width: 1200px;
+      padding: 3rem 2rem 2rem;
+      text-align: center;
+      flex: 1;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero p {
+      font-size: 1.125rem;
+      color: var(--gray-600);
+      margin-bottom: 2.5rem;
+    }
+
+    form {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 700px;
+      margin: 0 auto 4rem auto;
+    }
+
+    form input[type="url"] {
+      flex-grow: 1;
+      padding: 14px 18px;
+      font-size: 1rem;
+      border: 1.5px solid var(--input-border);
+      border-radius: 0.75rem;
+      background: var(--input-bg);
+      color: var(--black);
+      font-weight: 500;
+      min-width: 300px;
+    }
+
+    form input[type="url"]::placeholder {
+      color: #9ca3af;
+    }
+
+    form button {
+      padding: 14px 36px;
+      font-weight: 700;
+      font-size: 1.125rem;
+      border: none;
+      border-radius: 0.75rem;
+      background-color: var(--btn-bg);
+      color: var(--btn-color);
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background-color: var(--btn-hover-bg);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .feature-box {
+      background: var(--box-bg);
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      transition: transform 0.3s, background 0.3s;
+      color: var(--box-text);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-box:hover {
+      transform: translateY(-10px);
+    }
+
+    .feature-box h3,
+    .feature-box p {
+      color: var(--box-text);
+    }
+
+    footer {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    .copyright {
+      color: var(--gray-600);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .copyright .highlight {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    @media (max-width: 992px) {
+      .features {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .copyright {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="logo">🚀 CHAT AI</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/features">Features</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/documentation">Documentation</a>
+        <a href="/contact">Contact</a>
+        <button id="theme-toggle">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Intelligent Webpage Analysis</h1>
+      <p>Gain real-time, AI-powered insights into any webpage.<br />Instantly uncover structure, performance metrics, and optimization opportunities.</p>
+    </section>
+
+    <form name="urlForm" action="/start" method="POST" onsubmit="return validateForm()">
+      <input type="url" name="url" placeholder="Enter webpage URL (e.g., https://example.com)" required />
+      <button type="submit">Analyze</button>
+    </form>
+
+    <section class="features">
+      <div class="feature-box">
+        <h3>🔍 Deep Content Analysis</h3>
+        <p>Advanced NLP analyzes webpage content and semantic meaning to give quality insights.</p>
+      </div>
+      <div class="feature-box">
+        <h3>⚡ Performance Intelligence</h3>
+        <p>Analyze Core Web Vitals and speed with real-time metrics for better user experience.</p>
+      </div>
+      <div class="feature-box">
+        <h3>🛡 Enterprise Security</h3>
+        <p>Bank-level encryption and secure APIs keep your requests safe.</p>
+      </div>
+      <div class="feature-box">
+        <h3>📊 SEO & Accessibility</h3>
+        <p>Audit SEO tags, accessibility, structured data, and get actionable recommendations.</p>
+      </div>
+      <div class="feature-box">
+        <h3>🎯 Competitive Analysis</h3>
+        <p>Compare against competitors and benchmark performance.</p>
+      </div>
+      <div class="feature-box">
+        <h3>🔗 API Integration</h3>
+        <p>Connect easily to custom apps and BI platforms via RESTful APIs.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="copyright">
+      © 2025 Harshitha - Infomerica Inc. All rights reserved. | Chat-AI Solutions<br>
+      <span class="highlight">Made by Harshitha</span>
+    </div>
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+
+    function setTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙'; // 
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+    });
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
+
+    function validateForm() {
+      const url = document.forms["urlForm"]["url"].value.trim();
+      try {
+        new URL(url);
+      } catch (_) {
+        alert("⚠ Enter a valid URL.");
+        return false;
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>

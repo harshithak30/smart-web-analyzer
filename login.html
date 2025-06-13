@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            --bg-light: linear-gradient(135deg, #dfe9f3, #ffffff);
+            --text-dark: white;
+            --text-light: #1e293b;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-dark);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            transition: background 0.5s, color 0.5s;
+        }
+
+        .light-mode {
+            background: var(--bg-light);
+            color: var(--text-light);
+        }
+
+        .login-container {
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+            width: 400px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .light-mode .login-container {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 14px;
+            margin: 14px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .light-mode input {
+            background: rgba(0, 0, 0, 0.05);
+            color: black;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        input:focus {
+            border-color: #64b5f6;
+            box-shadow: 0 0 8px rgba(100, 181, 246, 0.3);
+        }
+
+        input::placeholder {
+            color: #ddd;
+            opacity: 0.8;
+        }
+
+        .light-mode input::placeholder {
+            color: #666;
+        }
+
+        button {
+            background-color: #64b5f6;
+            color: white;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #42a5f5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .error {
+            color: #ff6666;
+            margin-top: 20px;
+            animation: shake 0.3s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .register-link {
+            margin-top: 25px;
+            font-size: 0.95em;
+        }
+
+        .register-link a {
+            color: #64b5f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+            color: #42a5f5;
+        }
+
+        /* Toggle Button */
+        .toggle-theme {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            color: white;
+        }
+
+        .light-mode .toggle-theme {
+            color: #1e293b;
+        }
+
+        /* Background Circles */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            animation: moveCircles 8s linear infinite;
+        }
+
+        .circle:nth-child(1) {
+            top: -50px;
+            left: -50px;
+            width: 100px;
+            height: 100px;
+        }
+
+        .circle:nth-child(2) {
+            top: 20%;
+            right: -30px;
+            width: 60px;
+            height: 60px;
+            animation-delay: 2s;
+        }
+
+        .circle:nth-child(3) {
+            bottom: 10%;
+            left: 40px;
+            width: 80px;
+            height: 80px;
+            animation-delay: 4s;
+        }
+
+        @keyframes moveCircles {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            100% {
+                transform: translateY(100px) translateX(-100px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="toggle-theme" onclick="toggleTheme()" id="themeToggle">☀️</button>
+
+    <div class="login-container">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <h2>Intelligent Webpage Analyzer</h2>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        <form method="post">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Log In</button>
+        </form>
+        <div class="register-link">
+            <a href="{{ url_for('register') }}">Don't have an account? Register here</a>
+        </div>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const toggleBtn = document.getElementById("themeToggle");
+
+            body.classList.toggle("light-mode");
+
+            if (body.classList.contains("light-mode")) {
+                toggleBtn.textContent = "🌙"; // Moon = dark toggle
+            } else {
+                toggleBtn.textContent = "☀️"; // Sun = light toggle
+            }
+        }
+    </script>
+</body>
+</html>
